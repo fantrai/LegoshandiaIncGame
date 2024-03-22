@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 public class Fly : MonoBehaviour, IFood
 {
     [SerializeField, Range(1f, 10f)] protected float rateWait = 1;
+    [SerializeField, Range(0f, 1f)] protected float rateScale = 0.2f;
     [SerializeField] protected bool giveFlies;
     [SerializeField] protected bool giveGoldFlies;
 
@@ -32,7 +33,7 @@ public class Fly : MonoBehaviour, IFood
         if(Random.value <= 0.5f) modMove = -modMove;
         speed = moveSpeed * deviationMove;
         startPos = transform.position;
-        transform.localScale *= Random.Range(0.5f, 1.5f);
+        transform.localScale *= Random.Range(1 - rateScale, 1 + rateScale);
     }
 
     private void FixedUpdate()

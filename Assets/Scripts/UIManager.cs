@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
@@ -6,9 +7,21 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+    public static Action OnNewGoldFliesScore;
+
     [SerializeField] int countUpdateFliesPerSecond = 1;
-    [SerializeField] TextMeshProUGUI fliesText;
-    [SerializeField, Tooltip("текстовые модификаторы к счету за каждую 1000")] string[] modifWithScore;
+    [SerializeField] TextMeshProUGUI[] fliesText;
+    [SerializeField] TextMeshProUGUI[] goldFliesText;
+
+    private void OnEnable()
+    {
+        OnNewGoldFliesScore += GoldFliesScoreUpdate;
+    }
+
+    private void OnDisable()
+    {
+        OnNewGoldFliesScore -= GoldFliesScoreUpdate;
+    }
 
     private void Start()
     {
@@ -19,22 +32,20 @@ public class UIManager : MonoBehaviour
     {
         do
         {
-            fliesText.text = ConvertFliesToText(SaveManager.save.flies);
+            foreach (var item in fliesText)
+            {
+                item.text = MONEYS.ConvertToString(SaveManager.save.flies);
+            }
             yield return new WaitForSeconds(1 / countUpdateFliesPerSecond);
         } while (true);
     }
 
-    public string ConvertFliesToText(BigInteger val)
+    void GoldFliesScoreUpdate()
     {
-        BigInteger retVal = val;
-        int countDiv = 0;
-        BigInteger remains = 0;
-        while (retVal > 1000)
+        foreach(var item in goldFliesText)
         {
-            retVal = BigInteger.DivRem(retVal, 1000,out remains);
-            countDiv++;
+            item.text = SaveManager.save.goldFlies.ToString();
+
         }
-        remains = remains / 10;
-        return retVal.ToString() + (remains > 0 ? "," + remains.ToString() : "") + modifWithScore[countDiv];
     }
 }

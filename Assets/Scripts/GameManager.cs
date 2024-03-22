@@ -35,18 +35,22 @@ public class GameManager : MonoBehaviour
         StartCoroutine(FliesPerSecond());
     }
 
-    public void CreateNewFly(uint count, Vector2 pos)
+    public void CreateNewFly(uint count)
     {
-        GameObject fly;
-        if (Random.value * 100 <= chanceGoldFly)
+        for (int i = 0; i < count; i++)
         {
-            fly = Instantiate(goldFlyPrefab, pos, goldFlyPrefab.transform.rotation);
+            Vector2 spavnPos = Random.insideUnitCircle * (Camera.main.orthographicSize / 2);
+            GameObject fly;
+            if (Random.value * 100 <= chanceGoldFly)
+            {
+                fly = Instantiate(goldFlyPrefab, spavnPos, goldFlyPrefab.transform.rotation);
+            }
+            else
+            {
+                fly = Instantiate(flyPrefab, spavnPos, flyPrefab.transform.rotation);
+            }
+            foodList.Add(fly.GetComponent<IFood>());
         }
-        else
-        {
-            fly = Instantiate(flyPrefab, pos, flyPrefab.transform.rotation);
-        }
-        foodList.Add(fly.GetComponent<IFood>());
     }
 
     public void AddFlies(BigInteger count)
@@ -54,9 +58,10 @@ public class GameManager : MonoBehaviour
         SaveManager.save.flies += count;
     }
 
-    public void AddGoldFlies(uint count) 
+    public void AddGoldFlies(uint count)
     {
-        SaveManager.save.goldFliesForGoldFly += count;
+        SaveManager.save.goldFlies += count;
+        UIManager.OnNewGoldFliesScore();
     }
 
     public bool BuyForFlies(BigInteger cost)
@@ -77,11 +82,24 @@ public class GameManager : MonoBehaviour
         if (SaveManager.save.goldFlies >= cost)
         {
             SaveManager.save.goldFlies -= cost;
+            UIManager.OnNewGoldFliesScore();
             return true;
         }
         else
         {
             return false;
+        }
+    }
+
+    public void AddCoolness(uint val)
+    {
+        var save = SaveManager.save;
+        save.coolness += val;
+        if (save.coolness > save.coolnessBeforeNextLvl)
+        {
+            save.LvlCoolness++;
+            save.coolness -= save.coolnessBeforeNextLvl;
+            save.coolnessBeforeNextLvl = (uint)(save.coolnessBeforeNextLvl * rateNewLvl);
         }
     }
 
@@ -91,7 +109,7 @@ public class GameManager : MonoBehaviour
         {
             if (SaveManager.save.fliesPerSecond > 0)
             {
-                CreateNewFly(1, Random.insideUnitCircle * (Camera.main.orthographicSize / 2));
+                CreateNewFly(1);
             }
             float sleepTime = (float)(SaveManager.save.fliesPerSecond == 0 ? 1 : 1f / SaveManager.save.fliesPerSecond);
             yield return new WaitForSeconds(sleepTime);

@@ -17,7 +17,7 @@ public class MainFrog : MonoBehaviour
             {
                 GameManager.manager.foodList[Random.Range(0, GameManager.manager.foodList.Count)].Eat();
             }
-            yield return new WaitForSeconds(1 / SaveManager.save.speedFliesPerSecond);
+            yield return new WaitForSeconds(1 / SaveManager.save.speedEating);
         } while (true);
     }
 }
