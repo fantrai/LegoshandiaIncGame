@@ -5,6 +5,9 @@ using System.Numerics;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// все, что касается общего взаимодействия с UI
+/// </summary>
 public class UIManager : MonoBehaviour
 {
     public static Action OnNewGoldFliesScore;

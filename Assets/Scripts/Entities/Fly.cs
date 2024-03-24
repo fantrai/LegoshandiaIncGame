@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+/// <summary>
+/// обрабатывает поведение и возможности мух
+/// </summary>
 public class Fly : MonoBehaviour, IFood
 {
     [SerializeField, Range(1f, 10f)] protected float rateWait = 1;

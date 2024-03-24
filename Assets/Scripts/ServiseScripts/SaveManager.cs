@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+/// <summary>
+/// управление сохранениями в игре
+/// </summary>
 public static class SaveManager
 {
     static SaveManager()

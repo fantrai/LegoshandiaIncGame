@@ -6,9 +6,13 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using TMPro;
 
-public abstract class AbstractStaticPunchase : MonoBehaviour
+/// <summary>
+/// абстракция для постоянных покупок
+/// </summary>
+public abstract class AbstractStaticPurchase : AbstractPurchase
 {
-    [SerializeField] string namingSave;
+    [SerializeField, Range(-1, 1000)] protected int maxCount = 100;
+    [SerializeField, Range(0, 100)] protected uint addProcientCostForBuy = 0;
     [Header("Мухи")]
     [SerializeField] uint addFliesPerSecond = 0;
     [SerializeField] uint addPliesPerClick = 0;
@@ -20,9 +24,6 @@ public abstract class AbstractStaticPunchase : MonoBehaviour
     [SerializeField] float addSpeedEating = 0;
     [Header("Крутость")]
     [SerializeField] uint addCoolness = 0;
-    [Header("Настройки покупки")]
-    [SerializeField, Range(0, 100)] protected uint addProcientCostForBuy = 0;
-    [SerializeField] uint maxCount = 1000;
     [Header("UI")]
     [SerializeField] TextMeshProUGUI buyButtonText;
     [SerializeField] TextMeshProUGUI buyAllButtonText;
@@ -48,7 +49,7 @@ public abstract class AbstractStaticPunchase : MonoBehaviour
         StartCoroutine(UpdateCountMaxBuy());
     }
 
-    bool Buy()
+    protected override bool Buy()
     {
         if (count < maxCount)
         {

@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 
+/// <summary>
+/// файл сохранения
+/// </summary>
 [Serializable]
 public class Save
 {
@@ -21,6 +24,8 @@ public class Save
     public uint coolness = 0;
     public uint LvlCoolness = 1;
     public uint coolnessBeforeNextLvl = 100;
+
+    public bool music = true;
 
     public Dictionary<string, uint> punchases = new Dictionary<string, uint>();
 }

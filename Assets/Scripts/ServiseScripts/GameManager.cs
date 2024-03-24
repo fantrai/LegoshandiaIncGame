@@ -8,6 +8,9 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using Vector2 = UnityEngine.Vector2;
 
+/// <summary>
+/// общее управление игрой, принятие и проверка важнейших решений
+/// </summary>
 public class GameManager : MonoBehaviour
 {
     public static GameManager manager;
@@ -28,6 +31,7 @@ public class GameManager : MonoBehaviour
             Destroy(manager);
         }
         manager = this;
+        AudioListener.pause = SaveManager.save.music;
     }
 
     private void Start()

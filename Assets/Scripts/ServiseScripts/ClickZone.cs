@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// обработка кликов
+/// </summary>
 public class ClickZone : MonoBehaviour
 {
     [SerializeField] uint stepCombo;

@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainFrog : MonoBehaviour
+/// <summary>
+/// обрабатывает поведение и возможности легушек
+/// </summary>
+public class Frog : MonoBehaviour
 {
     void Start()
     {

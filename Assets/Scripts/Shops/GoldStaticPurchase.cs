@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
 
-public class TemporalityPurchase : AbstractStaticPunchase
+/// <summary>
+/// постоянные улучшения за золотых мух
+/// </summary>
+public class GoldStaticPurchase : AbstractStaticPurchase
 {
     [Header("Стоимость")]
     [SerializeField] uint startCostGoldFlies = 1;

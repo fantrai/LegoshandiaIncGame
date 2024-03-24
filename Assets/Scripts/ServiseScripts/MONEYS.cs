@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
 
+/// <summary>
+/// именование модификаторов к мухам
+/// </summary>
 public enum ModsForMoney
 {
     flies,
@@ -12,6 +15,9 @@ public enum ModsForMoney
     b,
 }
 
+/// <summary>
+/// управление большими числами мух
+/// </summary>
 public static class MONEYS
 {
     static Dictionary<ModsForMoney, string> VALS = new Dictionary<ModsForMoney, string>() 

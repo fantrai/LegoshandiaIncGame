@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
 
-public class StaticPurchase : AbstractStaticPunchase
+/// <summary>
+/// покупка постоянных улучшений за мух
+/// </summary>
+public class StaticPurchase : AbstractStaticPurchase
 {
     [Header("Стоимость")]
     [SerializeField, Range(10, 999)] uint startCostFlies = 10;
