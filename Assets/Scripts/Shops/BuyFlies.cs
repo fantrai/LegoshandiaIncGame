@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
+using TMPro;
 using UnityEngine;
 
 /// <summary>
@@ -7,15 +9,22 @@ using UnityEngine;
 /// </summary>
 public class BuyFlies : AbstractPurchase
 {
-    [SerializeField, Range(1, 999)] protected uint addFlies;
-    [SerializeField] ModsForMoney modFlies = 0;
+    [SerializeField] uint countFliesInHourWork;
     [SerializeField] uint costGoldFly = 0;
+    [SerializeField] TextMeshProUGUI countBuyFliesText;
+    BigInteger countBuyFlies = 0;
+
+    private void OnEnable()
+    {
+        countBuyFlies = new BigInteger(countFliesInHourWork * SaveManager.save.speedEating) * SaveManager.save.fliesForFly;
+        countBuyFliesText.text = MONEYS.ConvertToString(countBuyFlies);
+    }
 
     protected override bool Buy()
     {
         if (GameManager.manager.BuyForGoldFlies(costGoldFly))
         {
-            GameManager.manager.AddFlies(MONEYS.ConvertToBigInt(addFlies, modFlies, 0));
+            GameManager.manager.AddFlies(countBuyFlies);
             return true;
         }
         else 

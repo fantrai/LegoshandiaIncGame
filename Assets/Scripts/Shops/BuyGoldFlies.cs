@@ -8,9 +8,10 @@ using UnityEngine;
 public class BuyGoldFlies : AbstractPurchase
 {
     [SerializeField] uint addGoldFlies;
+    bool buyProv = true;
     protected override bool Buy()
     {
-        if (true)
+        if (buyProv)
         {
             GameManager.manager.AddGoldFlies(addGoldFlies);
             return true;
