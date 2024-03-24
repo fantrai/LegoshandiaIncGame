@@ -13,6 +13,8 @@ public static class SaveManager
         if (File.Exists(pathToSave))
         {
             save = JsonUtility.FromJson<Save>(File.ReadAllText(pathToSave));
+            save.flies = new(save.fliesForByte);
+            save.fliesForFly = new(save.fliesForFlyForByte);
         }
         else
         {
@@ -26,6 +28,17 @@ public static class SaveManager
 
     public static void SaveData()
     {
+        save.fliesForByte = save.flies.ToByteArray();
+        save.fliesForFlyForByte = save.fliesForFly.ToByteArray();
         File.WriteAllText(pathToSave, JsonUtility.ToJson(save));
+    }
+
+    public static void RemoveSave()
+    {
+        if (File.Exists(pathToSave))
+        {
+            File.Delete(pathToSave);
+            save = new Save();
+        }
     }
 }

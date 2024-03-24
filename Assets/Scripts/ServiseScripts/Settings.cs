@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Управление вкладкой настроек
@@ -11,5 +13,11 @@ public class Settings : MonoBehaviour
     {
         AudioListener.pause = !AudioListener.pause;
         SaveManager.save.music = AudioListener.pause;
+    }
+
+    public void RemoveSaveFile()
+    {
+        SaveManager.RemoveSave();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

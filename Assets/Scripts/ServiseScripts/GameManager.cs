@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
     {
         SaveManager.save.goldFlies += count;
         UIManager.OnNewGoldFliesScore();
+        SaveManager.SaveData();
     }
 
     public bool BuyForFlies(BigInteger cost)
@@ -73,6 +74,7 @@ public class GameManager : MonoBehaviour
         if (SaveManager.save.flies >= cost)
         {
             SaveManager.save.flies -= cost;
+            SaveManager.SaveData();
             return true;
         }
         else 
@@ -87,6 +89,7 @@ public class GameManager : MonoBehaviour
         {
             SaveManager.save.goldFlies -= cost;
             UIManager.OnNewGoldFliesScore();
+            SaveManager.SaveData();
             return true;
         }
         else
@@ -104,6 +107,7 @@ public class GameManager : MonoBehaviour
             save.LvlCoolness++;
             save.coolness -= save.coolnessBeforeNextLvl;
             save.coolnessBeforeNextLvl = (uint)(save.coolnessBeforeNextLvl * rateNewLvl);
+            SaveManager.SaveData();
         }
     }
 
