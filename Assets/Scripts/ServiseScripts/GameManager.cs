@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(FliesPerSecond());
+        StartCoroutine(PassivFlies());
     }
 
     public void CreateNewFly(uint count)
@@ -121,6 +122,15 @@ public class GameManager : MonoBehaviour
             }
             float sleepTime = (float)(SaveManager.save.fliesPerSecond == 0 ? 1 : 1f / SaveManager.save.fliesPerSecond);
             yield return new WaitForSeconds(sleepTime);
+        } while (true);
+    }
+
+    IEnumerator PassivFlies()
+    {
+        do
+        {
+            SaveManager.save.flies += SaveManager.save.passivFliesPerSecond;
+            yield return new WaitForSeconds(1);
         } while (true);
     }
 }

@@ -15,6 +15,7 @@ public static class SaveManager
             save = JsonUtility.FromJson<Save>(File.ReadAllText(pathToSave));
             save.flies = new(save.fliesForByte);
             save.fliesForFly = new(save.fliesForFlyForByte);
+            save.passivFliesPerSecond = new(save.passivFliesPerSecondForBytes);
         }
         else
         {
@@ -30,6 +31,7 @@ public static class SaveManager
     {
         save.fliesForByte = save.flies.ToByteArray();
         save.fliesForFlyForByte = save.fliesForFly.ToByteArray();
+        save.passivFliesPerSecondForBytes = save.passivFliesPerSecond.ToByteArray();
         File.WriteAllText(pathToSave, JsonUtility.ToJson(save));
     }
 
