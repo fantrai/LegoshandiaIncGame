@@ -29,6 +29,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(ScoreUpdater());
+        OnNewGoldFliesScore();
     }
 
     IEnumerator ScoreUpdater()
@@ -48,7 +49,6 @@ public class UIManager : MonoBehaviour
         foreach(var item in goldFliesText)
         {
             item.text = SaveManager.save.goldFlies.ToString();
-
         }
     }
 }

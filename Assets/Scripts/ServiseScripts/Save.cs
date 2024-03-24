@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using Unity.VisualScripting;
 
 /// <summary>
 /// файл сохранения
@@ -9,10 +10,13 @@ using System.Numerics;
 [Serializable]
 public class Save
 {
-    public BigInteger flies = 0;
+    [DoNotSerialize] public BigInteger flies = 0;
+    public byte[] fliesForByte = new BigInteger(0).ToByteArray();
     public uint fliesPerSecond = 0;
     public uint fliesPerClick = 1;
-    public BigInteger fliesForFly = 1;
+    [DoNotSerialize] public BigInteger fliesForFly = 1;
+    public byte[] fliesForFlyForByte = new BigInteger(1).ToByteArray();
+
 
     public float waitFlies = 2f;
 

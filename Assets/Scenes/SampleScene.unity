@@ -380,7 +380,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rateNewLvl: 1.2
-  chanceGoldFly: 0.1
+  chanceGoldFly: 10
   flyPrefab: {fileID: 4696218597150897097, guid: 292d7773e49fbef4dbb14e20ef72f10c, type: 3}
   goldFlyPrefab: {fileID: 1144062414911684394, guid: 836fa233fa8107042aba09908ecfcac6, type: 3}
   mainFrog: {fileID: 1586561622}
