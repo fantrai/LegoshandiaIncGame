@@ -18,6 +18,8 @@ public abstract class AbstractStaticPurchase : AbstractPurchase
     [SerializeField] uint addPliesPerClick = 0;
     [SerializeField, Range(0, 999)] uint addFliesForFly = 0;
     [SerializeField] ModsForMoney modifForAddFliesForFly = 0;
+    [SerializeField, Range(0, 999)] uint addPassiveFliesPerSecond = 0;
+    [SerializeField] ModsForMoney modifForAddPassiveFliesPerSecond = 0;
     [SerializeField] float addWaitFlies = 0;
     [SerializeField] uint addGoldForGoldFly = 0;
     [Header("Легушка")]
@@ -92,6 +94,7 @@ public abstract class AbstractStaticPurchase : AbstractPurchase
         save.fliesPerSecond += addFliesPerSecond;
         save.fliesPerClick += addPliesPerClick;
         save.fliesForFly += MONEYS.ConvertToBigInt(addFliesForFly, modifForAddFliesForFly, 0);
+        save.passivFliesPerSecond += MONEYS.ConvertToBigInt(addPassiveFliesPerSecond, modifForAddPassiveFliesPerSecond, 0);
         save.waitFlies += addWaitFlies;
         save.goldFliesForGoldFly += addGoldForGoldFly;
         save.speedEating += addSpeedEating;
