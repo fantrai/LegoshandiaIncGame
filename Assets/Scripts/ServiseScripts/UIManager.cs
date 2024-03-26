@@ -12,9 +12,11 @@ public class UIManager : MonoBehaviour
 {
     public static Action OnNewGoldFliesScore;
 
-    [SerializeField] int countUpdateFliesPerSecond = 1;
+    [SerializeField] int countUpdateFliesPerSecond;
     [SerializeField] TextMeshProUGUI[] fliesText;
     [SerializeField] TextMeshProUGUI[] goldFliesText;
+    [SerializeField] TextMeshProUGUI passiveFliesPerSecondText;
+    [SerializeField] TextMeshProUGUI waitTimeFliesText;
 
     private void OnEnable()
     {
@@ -40,6 +42,8 @@ public class UIManager : MonoBehaviour
             {
                 item.text = MONEYS.ConvertToString(SaveManager.save.flies);
             }
+            passiveFliesPerSecondText.text = "+" + MONEYS.ConvertToString(SaveManager.save.passivFliesPerSecond) + "мух/сек";
+            waitTimeFliesText.text = Math.Round(SaveManager.save.waitFlies, 2) + " сек";
             yield return new WaitForSeconds(1 / countUpdateFliesPerSecond);
         } while (true);
     }

@@ -16,7 +16,7 @@ public class Save
     public uint fliesPerClick = 1;
     [DoNotSerialize] public BigInteger fliesForFly = 1;
     public byte[] fliesForFlyForByte = new BigInteger(1).ToByteArray();
-    [DoNotSerialize] public BigInteger passivFliesPerSecond = 1;
+    [DoNotSerialize] public BigInteger passivFliesPerSecond = 0;
     public byte[] passivFliesPerSecondForBytes = new BigInteger(1).ToByteArray();
 
 

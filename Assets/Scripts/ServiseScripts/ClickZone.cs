@@ -27,7 +27,7 @@ public class ClickZone : MonoBehaviour
         comboBonus = comboBonus > 0 ? comboBonus : 1;
         comboBonus = comboBonus <= maxCombo ? comboBonus : maxCombo;
 
-        GameManager.manager.CreateNewFly(SaveManager.save.fliesPerClick * comboBonus);
+        GameManager.manager.CreateNewFly(SaveManager.save.fliesPerClick * comboBonus, comboBonus);
     }
 
     IEnumerator CheckCombo()
