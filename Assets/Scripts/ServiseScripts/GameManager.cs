@@ -40,6 +40,16 @@ public class GameManager : MonoBehaviour
         StartCoroutine(PassivFlies());
     }
 
+    private void OnApplicationPause(bool pause)
+    {
+        SaveManager.SaveData();
+    }
+
+    private void OnApplicationQuit()
+    {
+        SaveManager.SaveData();
+    }
+
     public void CreateNewFly(uint count)
     {
         for (int i = 0; i < count; i++)
