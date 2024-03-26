@@ -40,7 +40,17 @@ public class GameManager : MonoBehaviour
         StartCoroutine(PassivFlies());
     }
 
-    public void CreateNewFly(uint count)
+    private void OnApplicationPause(bool pause)
+    {
+        SaveManager.SaveData();
+    }
+
+    private void OnApplicationQuit()
+    {
+        SaveManager.SaveData();
+    }
+
+    public void CreateNewFly(uint count, float modChanceGoldfly)
     {
         for (int i = 0; i < count; i++)
         {
@@ -118,7 +128,7 @@ public class GameManager : MonoBehaviour
         {
             if (SaveManager.save.fliesPerSecond > 0)
             {
-                CreateNewFly(1);
+                CreateNewFly(1, 1);
             }
             float sleepTime = (float)(SaveManager.save.fliesPerSecond == 0 ? 1 : 1f / SaveManager.save.fliesPerSecond);
             yield return new WaitForSeconds(sleepTime);
