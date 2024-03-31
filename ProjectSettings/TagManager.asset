@@ -44,6 +44,12 @@ TagManager:
   - name: Location
     uniqueID: 3348432059
     locked: 0
+  - name: Frogs
+    uniqueID: 3434194409
+    locked: 0
+  - name: Decoration
+    uniqueID: 2642733609
+    locked: 0
   - name: Flies
     uniqueID: 2959470849
     locked: 0
