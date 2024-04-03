@@ -1,7 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Newtonsoft.Json;
 
 /// <summary>
 /// управление сохранениями в игре
@@ -10,16 +14,19 @@ public static class SaveManager
 {
     static SaveManager()
     {
+        Start();
+    }
+
+    static void Start()
+    {
         if (File.Exists(pathToSave))
         {
-            save = JsonUtility.FromJson<Save>(File.ReadAllText(pathToSave));
-            save.flies = new(save.fliesForByte);
-            save.fliesForFly = new(save.fliesForFlyForByte);
-            save.passivFliesPerSecond = new(save.passivFliesPerSecondForBytes);
+            save = JsonConvert.DeserializeObject<Save>(File.ReadAllText(pathToSave));
         }
         else
         {
             save = new Save();
+            save.punchases = new Dictionary<string, uint>();
         }
     }
 
@@ -29,18 +36,16 @@ public static class SaveManager
 
     public static void SaveData()
     {
-        save.fliesForByte = save.flies.ToByteArray();
-        save.fliesForFlyForByte = save.fliesForFly.ToByteArray();
-        save.passivFliesPerSecondForBytes = save.passivFliesPerSecond.ToByteArray();
-        File.WriteAllText(pathToSave, JsonUtility.ToJson(save));
+        File.WriteAllText(pathToSave, JsonConvert.SerializeObject(save));
     }
 
-    public static void RemoveSave()
+   public static void RemoveSave()
     {
         if (File.Exists(pathToSave))
         {
             File.Delete(pathToSave);
-            save = new Save();
         }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Start();
     }
 }

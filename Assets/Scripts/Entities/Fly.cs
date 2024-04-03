@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using Vector2 = UnityEngine.Vector2;
 
 /// <summary>
 /// обрабатывает поведение и возможности мух
@@ -26,6 +28,8 @@ public class Fly : MonoBehaviour, IFood
     int modMove = 1;
     Vector2 targetPos;
     Vector2 startPos;
+    bool leave = false;
+    Vector2 leaveVector;
 
     private void Start()
     {
@@ -41,7 +45,18 @@ public class Fly : MonoBehaviour, IFood
 
     private void FixedUpdate()
     {
-        moveModels[useMoveModel]();
+        if (leave)
+        {
+            transform.Translate(leaveVector * speed * Time.fixedDeltaTime);
+            if (Mathf.Abs(transform.position.x) > 10)
+            {
+                Destroy(gameObject);
+            }
+        }
+        else
+        {
+            moveModels[useMoveModel]();
+        }
     }
 
     public void Eat()
@@ -55,19 +70,22 @@ public class Fly : MonoBehaviour, IFood
     IEnumerator Waiting()
     {
         yield return new WaitForSeconds(rateWait * SaveManager.save.waitFlies);
-        Leave();
-    }
-
-    void Leave()
-    {
+        leave = true;
         GameManager.manager.foodList.Remove(this);
-        Destroy(gameObject);
+        if (transform.position.x > 0)
+        {
+            leaveVector = Vector2.right;
+        }
+        else
+        {
+            leaveVector = Vector2.left;
+        }
     }
 
     void SubsDelegate()
     {
         moveModels.Add(new(MoveOnCircle));
-        moveModels.Add(new(MoveOnHorizontaleLine));
+        moveModels.Add(new(MoveRandom));
     }
 
     void MoveOnCircle()
@@ -79,7 +97,7 @@ public class Fly : MonoBehaviour, IFood
         transform.position = new Vector2(x, y) + startPos;
     }
 
-    void MoveOnHorizontaleLine()
+    void MoveRandom()
     {
         if (targetPos == Vector2.zero || Vector2.Distance(transform.position, targetPos) < 1f)
         {

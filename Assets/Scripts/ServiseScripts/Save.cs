@@ -3,21 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using Unity.VisualScripting;
+using UnityEngine;
+using Newtonsoft.Json;
 
 /// <summary>
 /// файл сохранения
 /// </summary>
-[Serializable]
 public class Save
 {
-    [DoNotSerialize] public BigInteger flies = 0;
-    public byte[] fliesForByte = new BigInteger(0).ToByteArray();
+    public BigInteger flies = 0;
     public uint fliesPerSecond = 0;
     public uint fliesPerClick = 1;
-    [DoNotSerialize] public BigInteger fliesForFly = 1;
-    public byte[] fliesForFlyForByte = new BigInteger(1).ToByteArray();
-    [DoNotSerialize] public BigInteger passivFliesPerSecond = 0;
-    public byte[] passivFliesPerSecondForBytes = new BigInteger(1).ToByteArray();
+    public BigInteger fliesForFly = 1;
+    public BigInteger passivFliesPerSecond = 0;
 
 
     public float waitFlies = 2f;
@@ -33,5 +31,15 @@ public class Save
 
     public bool music = true;
 
-    public Dictionary<string, uint> punchases = new Dictionary<string, uint>();
+    public Dictionary<string, uint> punchases;
+    public Dictionary<string, uint> achivements;
+
+    //для достижений
+    public BigInteger takeFlies = 0;
+    public uint takeGoldFlies = 0;
+    public BigInteger clickCount = 0;
+    public uint openFrogs = 0;
+    public uint openColors = 0;
+    public uint openLocations = 0;
+    public DateTime timeInGame = new DateTime(2024, 03, 31, 0, 0, 0);
 }
