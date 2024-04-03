@@ -79,6 +79,10 @@ public abstract class AbstractStaticPurchase : AbstractPurchase
                 }
             }
         }
+        else
+        {
+            buyButtonText.text = "MAX";
+        }
         return false;
     }
 

@@ -27,6 +27,7 @@ public static class SaveManager
         {
             save = new Save();
             save.punchases = new Dictionary<string, uint>();
+            save.achivements = new Dictionary<string, uint>();
         }
     }
 
