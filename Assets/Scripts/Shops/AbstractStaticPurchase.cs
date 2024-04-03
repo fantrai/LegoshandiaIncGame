@@ -36,6 +36,11 @@ public abstract class AbstractStaticPurchase : AbstractPurchase
 
     private void Start()
     {
+        if (SaveManager.save.punchases.TryGetValue(namingSave, out uint countVal))
+        {
+            count = countVal;
+        }
+        
         if (costFlies != 0)
         {
             buyButtonText.text = MONEYS.ConvertToString(costFlies);
@@ -74,6 +79,10 @@ public abstract class AbstractStaticPurchase : AbstractPurchase
                 }
             }
         }
+        else
+        {
+            buyButtonText.text = "MAX";
+        }
         return false;
     }
 
@@ -100,6 +109,7 @@ public abstract class AbstractStaticPurchase : AbstractPurchase
         save.speedEating += addSpeedEating;
         GameManager.manager.AddCoolness(addCoolness);
         if(!save.punchases.TryAdd(namingSave, count)) save.punchases[namingSave] = count;
+        SaveManager.SaveData();
     }
 
     IEnumerator UpdateCountMaxBuy()

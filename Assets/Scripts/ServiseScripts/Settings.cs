@@ -18,6 +18,15 @@ public class Settings : MonoBehaviour
     public void RemoveSaveFile()
     {
         SaveManager.RemoveSave();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void TelegramButt()
+    {
+        Application.OpenURL("https://t.me/legoshandia");
+    }
+
+    public void DiscordButt()
+    {
+        Application.OpenURL("https://discord.gg/wFN2dQcJH4");
     }
 }

@@ -140,6 +140,7 @@ public class GameManager : MonoBehaviour
         do
         {
             SaveManager.save.flies += SaveManager.save.passivFliesPerSecond;
+            SaveManager.save.timeInGame = SaveManager.save.timeInGame.AddSeconds(1);
             yield return new WaitForSeconds(1);
         } while (true);
     }
