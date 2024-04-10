@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// все, что касается общего взаимодействия с UI
@@ -11,27 +12,37 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     public static Action OnNewGoldFliesScore;
+    public static Action OnAddCoolness;
 
     [SerializeField] int countUpdateFliesPerSecond;
     [SerializeField] TextMeshProUGUI[] fliesText;
     [SerializeField] TextMeshProUGUI[] goldFliesText;
     [SerializeField] TextMeshProUGUI passiveFliesPerSecondText;
     [SerializeField] TextMeshProUGUI waitTimeFliesText;
+    [SerializeField] Slider coolnessSlider;
 
-    private void OnEnable()
+     private void OnEnable()
     {
         OnNewGoldFliesScore += GoldFliesScoreUpdate;
+        GameManager.OnAddCoolness += UpdateCoolnessSlider;
     }
 
     private void OnDisable()
     {
         OnNewGoldFliesScore -= GoldFliesScoreUpdate;
+        GameManager.OnAddCoolness -= UpdateCoolnessSlider;
     }
 
     private void Start()
     {
         StartCoroutine(ScoreUpdater());
         OnNewGoldFliesScore();
+    }
+
+    void UpdateCoolnessSlider()
+    {
+        coolnessSlider.maxValue = SaveManager.save.coolnessBeforeNextLvl;
+        coolnessSlider.value = SaveManager.save.coolness;
     }
 
     IEnumerator ScoreUpdater()
