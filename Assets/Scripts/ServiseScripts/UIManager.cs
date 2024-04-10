@@ -36,6 +36,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(ScoreUpdater());
+        UpdateCoolnessSlider();
         OnNewGoldFliesScore();
     }
 
