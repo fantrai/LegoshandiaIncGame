@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager manager;
     public static Action OnNewLvl;
+    public static Action OnAddCoolness;
 
     public List<IFood> foodList = new List<IFood>();
 
@@ -71,6 +72,7 @@ public class GameManager : MonoBehaviour
     public void AddFlies(BigInteger count)
     {
         SaveManager.save.flies += count;
+        SaveManager.save.takeFlies += count;
     }
 
     public void AddGoldFlies(uint count)
@@ -111,13 +113,20 @@ public class GameManager : MonoBehaviour
 
     public void AddCoolness(uint val)
     {
+        SaveManager.save.coolness += val;
+        OnAddCoolness();
+    }
+
+    public void NewCoolnessLvl()
+    {
         var save = SaveManager.save;
-        save.coolness += val;
         if (save.coolness > save.coolnessBeforeNextLvl)
         {
             save.LvlCoolness++;
             save.coolness -= save.coolnessBeforeNextLvl;
             save.coolnessBeforeNextLvl = (uint)(save.coolnessBeforeNextLvl * rateNewLvl);
+            OnNewLvl();
+            OnAddCoolness();
             SaveManager.SaveData();
         }
     }

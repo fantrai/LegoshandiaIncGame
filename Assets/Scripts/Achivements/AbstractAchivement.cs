@@ -16,16 +16,16 @@ public abstract class AbstractAchivement : MonoBehaviour
         if (SaveManager.save.achivements.TryGetValue(namingSave, out uint countVal))
         {
             count = countVal;
+            UpdateSlider();
         }
     }
 
     private void OnEnable()
     {
-        getCollect = TryGetCollect(out float proc);
-        UpdateSlider(proc);
+        UpdateSlider();
     }
 
-    abstract protected bool TryGetCollect(out float proc);
+    abstract protected void Status(out float proc);
 
     public void CollectAchivement()
     {
@@ -38,12 +38,19 @@ public abstract class AbstractAchivement : MonoBehaviour
                 var save = SaveManager.save;
                 if (!save.achivements.TryAdd(namingSave, count)) save.achivements[namingSave] = count;
                 SaveManager.SaveData();
+                getCollect = false;
             }
         }
+        UpdateSlider();
     }
 
-    void UpdateSlider(float proc)
+    void UpdateSlider()
     {
+        Status(out float proc);
         slider.value = slider.maxValue / 100 * proc;
+        if (proc >= 100)
+        {
+            getCollect = true;
+        }
     }
 }
